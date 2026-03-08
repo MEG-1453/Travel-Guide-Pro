@@ -80,22 +80,33 @@ export function AppProvider({ children }) {
     }, []);
 
     const createRoute = useCallback(() => {
-        const titles = placesData
-            .filter(p => selectedPlaceIds.includes(p.id))
-            .map(p => encodeURIComponent(p.title));
+        // 1. Seçilen mekanları filtrele
+        const selectedPlaces = placesData.filter(p => selectedPlaceIds.includes(p.id));
 
-        if (!titles.length) return;
+        if (!selectedPlaces.length) return;
 
-        // KESİN ÇÖZÜM BURASI: Hedeflerin en başına başlangıç noktası olarak
-        // anlık "Current+Location" (Mevcut Konum) parametresini ekliyoruz.
-        titles.unshift('Current+Location');
+        // 2. İsimleri URL için güvenli hale getir
+        const titles = selectedPlaces.map(p => encodeURIComponent(p.title));
 
-        // Resmi Google Maps yol tarifi kök URL'si
-        const baseUrl = "https://www.google.com/maps/dir";
-        const destinationPath = titles.join('/');
+        // 3. Resmi Google Maps Yol Tarifi Kök URL'si
+        // KESİN ÇÖZÜM: 'origin' parametresini vermediğimizde Google Maps otomatik olarak
+        // kullanıcının anlık (live) GPS konumunu başlangıç noktası kabul eder.
+        const baseUrl = "https://www.google.com/maps/dir/?api=1";
 
-        // Linki aç: Örn -> https://www.google.com/maps/dir/Current+Location/Galata...
-        window.open(`${baseUrl}/${destinationPath}`, '_blank');
+        // 4. Hedef (son nokta) ve ara durakları (waypoints) ayır
+        const destination = titles.pop(); // Listenin son elemanını hedef olarak alır
+        const waypoints = titles.join('%7C'); // Kalanları '|' (%7C) ile birleştirir
+
+        // 5. Nihai URL'yi inşa et
+        let finalUrl = `${baseUrl}&destination=${destination}`;
+
+        // Eğer 1'den fazla yer seçildiyse, diğerlerini ara durak olarak ekle
+        if (waypoints) {
+            finalUrl += `&waypoints=${waypoints}`;
+        }
+
+        // 6. Linki güvenli bir şekilde yeni sekmede aç
+        window.open(finalUrl, '_blank', 'noopener,noreferrer');
     }, [placesData, selectedPlaceIds]);
 
     // ── Modal controls ─────────────────────────────────────
