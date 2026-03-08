@@ -4,5 +4,5 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/My-Hobbies-Lab/', // Bu satırı ekledim
+  base: '/Travel-Guide-Pro/', // Bu satırı ekledim
 })

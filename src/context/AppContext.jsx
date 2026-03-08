@@ -82,9 +82,17 @@ export function AppProvider({ children }) {
     const createRoute = useCallback(() => {
         const titles = placesData
             .filter(p => selectedPlaceIds.includes(p.id))
-            .map(p => encodeURIComponent(p.title));
+            .map(p => encodeURIComponent(p.title)); // İsimleri URL formatına uygun hale getirir (Örn: boşluklar %20 olur)
+
         if (!titles.length) return;
-        window.open(`https://www.google.com/maps/dir/${titles.join('/')}`, '_blank');
+
+        // SİHİRLİ KISIM: "Current+Location" parametresi Google Haritalar'ı 
+        // açıldığı an aktif GPS sinyalini bulmaya zorlar.
+        const baseUrl = "https://www.google.com/maps/dir/Current+Location";
+        const destinationPath = titles.join('/');
+
+        // Linki doğru bir şekilde birleştirip yeni sekmede açıyoruz
+        window.open(`${baseUrl}/${destinationPath}`, '_blank');
     }, [placesData, selectedPlaceIds]);
 
     // ── Modal controls ─────────────────────────────────────
