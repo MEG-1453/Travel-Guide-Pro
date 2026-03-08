@@ -119,12 +119,12 @@ function Welcome({ onStart }) {
 
                 <div className="hero-stats">
                     <div className="stat-item">
-                        <span className="stat-num">14+</span>
+                        <span className="stat-num">15+</span>
                         <span className="stat-label">Rota</span>
                     </div>
                     <div className="stat-divider" />
                     <div className="stat-item">
-                        <span className="stat-num">3</span>
+                        <span className="stat-num">5</span>
                         <span className="stat-label">Kategori</span>
                     </div>
                     <div className="stat-divider" />
