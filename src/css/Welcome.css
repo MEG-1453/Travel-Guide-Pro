@@ -1,0 +1,419 @@
+/* ─────────────────────────────────────────────────────────
+   Welcome Screen — Netflix-style tilted poster wall
+   ───────────────────────────────────────────────────────── */
+
+.welcome-wrapper {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-sans);
+    overflow: hidden;
+}
+
+/* ── Poster Wall ───────────────────────────────────────── */
+.poster-wall {
+    position: absolute;
+    inset: -60%;
+    /* Extra space for the tilt without clipping, even on ultrawide */
+    transform: rotate(-10deg) scale(1.25) translateZ(0);
+    /* Netflix-style diagonal angle + hardware accel */
+    transform-origin: center center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14px;
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+}
+
+.poster-wall-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* Each row is a horizontal strip of images */
+.poster-row {
+    display: flex;
+    gap: 14px;
+    width: max-content;
+    /* will be animated */
+}
+
+/* Row 1: scroll left */
+.poster-row--1 {
+    animation: scrollLeft 180s linear infinite;
+    will-change: transform;
+}
+
+/* Row 2: scroll right (reversed) */
+.poster-row--2 {
+    animation: scrollRight 200s linear infinite;
+    will-change: transform;
+}
+
+/* Row 3: scroll left (slower) */
+.poster-row--3 {
+    animation: scrollLeft 190s linear infinite;
+    animation-delay: -20s;
+    will-change: transform;
+}
+
+/* Row 4: scroll right */
+.poster-row--4 {
+    animation: scrollRight 185s linear infinite;
+    animation-delay: -10s;
+    will-change: transform;
+}
+
+/* Row 5: scroll left */
+.poster-row--5 {
+    animation: scrollLeft 195s linear infinite;
+    animation-delay: -30s;
+    will-change: transform;
+}
+
+/* Row 6: scroll right */
+.poster-row--6 {
+    animation: scrollRight 190s linear infinite;
+    animation-delay: -15s;
+    will-change: transform;
+}
+
+/* Row 7: scroll left */
+.poster-row--7 {
+    animation: scrollLeft 210s linear infinite;
+    animation-delay: -25s;
+    will-change: transform;
+}
+
+/* Individual poster tile */
+.poster-tile {
+    width: 220px;
+    height: 150px;
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+    opacity: 0.75;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.40);
+    transition: opacity 0.3s;
+}
+
+/* ── Overlay ───────────────────────────────────────────── */
+.poster-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 60% 80% at 50% 50%,
+            rgba(2, 6, 23, 0.78) 0%,
+            rgba(2, 6, 23, 0.95) 100%);
+    z-index: 1;
+}
+
+/* ── Hero Content ──────────────────────────────────────── */
+.welcome-hero {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--sp-6);
+    padding: var(--sp-8) var(--sp-6);
+    max-width: 680px;
+    width: 100%;
+}
+
+/* ── Badge pill ────────────────────────────────────────── */
+.badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.30);
+    border-radius: var(--r-full);
+    padding: 6px 16px;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    color: var(--clr-primary-light);
+    letter-spacing: 2px;
+    backdrop-filter: blur(8px);
+}
+
+.badge-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--clr-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--clr-primary);
+    animation: dotPulse 2s ease-in-out infinite;
+}
+
+/* ── Hero title ────────────────────────────────────────── */
+.hero-title {
+    font-size: var(--text-5xl);
+    font-weight: var(--weight-extra);
+    color: white;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    margin: 0;
+    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+    animation: heroFadeUp 0.9s var(--ease-spring) 0.1s both;
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, var(--clr-primary-light) 0%, #6ee7b7 50%, var(--clr-primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ── Subtitle ──────────────────────────────────────────── */
+.hero-subtitle {
+    font-size: var(--text-md);
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.65;
+    margin: 0;
+    max-width: 480px;
+    animation: heroFadeUp 0.9s var(--ease-spring) 0.2s both;
+}
+
+/* ── Stats ─────────────────────────────────────────────── */
+.hero-stats {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-5);
+    animation: heroFadeUp 0.9s var(--ease-spring) 0.3s both;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.stat-num {
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-extra);
+    color: white;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: var(--text-xs);
+    color: rgba(255, 255, 255, 0.45);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.stat-divider {
+    width: 1px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* ── CTA group ─────────────────────────────────────────── */
+.cta-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-3);
+    animation: heroFadeUp 0.9s var(--ease-spring) 0.4s both;
+}
+
+.btn-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-4) var(--sp-8);
+    background: linear-gradient(135deg, var(--clr-primary), var(--clr-primary-dark));
+    color: white;
+    border: none;
+    border-radius: var(--r-full);
+    font-size: var(--text-md);
+    font-weight: var(--weight-bold);
+    font-family: var(--font-sans);
+    cursor: pointer;
+    transition: var(--transition-slow);
+    box-shadow: var(--shadow-primary), 0 0 40px rgba(16, 185, 129, 0.20);
+    letter-spacing: 0.3px;
+}
+
+.btn-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(16, 185, 129, 0.45);
+}
+
+.btn-cta-arrow {
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--duration-base) var(--ease-spring);
+}
+
+.btn-cta:hover .btn-cta-arrow {
+    transform: translateX(4px);
+}
+
+.cta-hint {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.40);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+}
+
+.hint-icon {
+    font-size: 14px;
+}
+
+/* ── Scroll cue ────────────────────────────────────────── */
+.scroll-cue {
+    position: absolute;
+    bottom: var(--sp-8);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-2);
+    z-index: 10;
+    color: rgba(255, 255, 255, 0.30);
+    font-size: var(--text-xs);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    animation: scrollCueFade 2s ease-in-out 1.5s infinite alternate both;
+}
+
+.scroll-mouse {
+    width: 22px;
+    height: 34px;
+    border: 1.5px solid rgba(255, 255, 255, 0.22);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    padding-top: 6px;
+}
+
+.scroll-wheel {
+    width: 3px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.35);
+    border-radius: var(--r-full);
+    animation: scrollWheel 1.8s var(--ease-in-out) infinite;
+}
+
+/* ── Keyframes ─────────────────────────────────────────── */
+@keyframes scrollLeft {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(-33.33%, 0, 0);
+    }
+}
+
+@keyframes scrollRight {
+    from {
+        transform: translate3d(-33.33%, 0, 0);
+    }
+
+    to {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes heroFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes dotPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 6px var(--clr-primary);
+    }
+
+    50% {
+        box-shadow: 0 0 14px var(--clr-primary), 0 0 28px rgba(16, 185, 129, 0.4);
+    }
+}
+
+@keyframes scrollCueFade {
+    from {
+        opacity: 0.25;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    to {
+        opacity: 0.60;
+        transform: translateX(-50%) translateY(6px);
+    }
+}
+
+@keyframes scrollWheel {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    60% {
+        transform: translateY(8px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+}
+
+/* ── Responsive ────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: var(--text-4xl);
+    }
+
+    .poster-tile {
+        width: 160px;
+        height: 110px;
+    }
+
+    .poster-wall {
+        transform: rotate(-10deg) scale(1.25);
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: var(--text-3xl);
+    }
+
+    .hero-stats {
+        gap: var(--sp-4);
+    }
+
+    .btn-cta {
+        padding: var(--sp-3) var(--sp-6);
+        font-size: var(--text-base);
+    }
+}

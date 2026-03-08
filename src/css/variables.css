@@ -1,0 +1,196 @@
+/* ============================================================
+   DESIGN SYSTEM v2 — Plus Jakarta Sans + 4px base scale
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+
+:root {
+    /* ── Brand Palette ──────────────────────────────────── */
+    --clr-primary: #10b981;
+    /* Emerald-500 */
+    --clr-primary-light: #34d399;
+    /* Emerald-400 */
+    --clr-primary-dark: #059669;
+    /* Emerald-600 */
+    --clr-primary-glow: rgba(16, 185, 129, 0.22);
+    --clr-primary-soft: rgba(16, 185, 129, 0.08);
+    --clr-primary-border: rgba(16, 185, 129, 0.20);
+
+    /* ── Neutrals (Slate) ──────────────────────────────── */
+    --clr-950: #020617;
+    /* near-black background */
+    --clr-900: #0f172a;
+    /* deep navy — dark sections */
+    --clr-800: #1e293b;
+    /* dark text, card headers */
+    --clr-700: #334155;
+    /* secondary dark text */
+    --clr-600: #475569;
+    /* body text */
+    --clr-500: #64748b;
+    /* muted text */
+    --clr-400: #94a3b8;
+    /* hints, placeholders */
+    --clr-300: #cbd5e1;
+    /* borders */
+    --clr-200: #e2e8f0;
+    /* light borders */
+    --clr-100: #f1f5f9;
+    /* light backgrounds */
+    --clr-50: #f8fafc;
+    /* page background */
+    --clr-white: #ffffff;
+
+    /* ── Status ────────────────────────────────────────── */
+    --clr-success: #10b981;
+    --clr-success-bg: rgba(16, 185, 129, 0.08);
+    --clr-error: #ef4444;
+    --clr-error-bg: rgba(239, 68, 68, 0.08);
+    --clr-warning: #f59e0b;
+    --clr-warning-bg: rgba(245, 158, 11, 0.08);
+    --clr-info: #3b82f6;
+    --clr-info-bg: rgba(59, 130, 246, 0.08);
+
+    /* ── Semantic Aliases ──────────────────────────────── */
+    --color-bg: #0f172a; /* Cinematic deep navy/slate */
+    --color-bg-mid: #1e293b; /* Slightly lighter deep slate */
+    --color-white: #ffffff;
+    --color-dark: #020617; /* Very dark slate */
+    --color-text: #e2e8f0; /* Off-white for legibility */
+    --color-muted: #94a3b8; /* Muted light gray */
+    --color-subtle: #64748b;
+    --color-border: rgba(255, 255, 255, 0.1); /* Subtle light border */
+    --color-border-light: rgba(255, 255, 255, 0.05);
+    --color-primary: var(--clr-primary);
+    --color-primary-dark: var(--clr-primary-dark);
+    --color-primary-glow: var(--clr-primary-glow);
+    --color-primary-soft: var(--clr-primary-soft);
+    --color-error: var(--clr-error);
+    --color-error-soft: var(--clr-error-bg);
+    --color-success: var(--clr-success);
+    --color-success-soft: var(--clr-success-bg);
+    --color-warning: var(--clr-warning);
+    --color-popular: rgba(239, 68, 68, 0.92);
+
+    /* ── Typography ────────────────────────────────────── */
+    --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    --text-xs: 0.6875rem;
+    /* 11px */
+    --text-sm: 0.8125rem;
+    /* 13px */
+    --text-base: 0.875rem;
+    /* 14px */
+    --text-md: 1rem;
+    /* 16px */
+    --text-lg: 1.125rem;
+    /* 18px */
+    --text-xl: 1.25rem;
+    /* 20px */
+    --text-2xl: 1.5rem;
+    /* 24px */
+    --text-3xl: 2rem;
+    /* 32px */
+    --text-4xl: 2.5rem;
+    /* 40px */
+    --text-5xl: 3.5rem;
+    /* 56px */
+
+    --weight-light: 300;
+    --weight-regular: 400;
+    --weight-medium: 500;
+    --weight-semi: 600;
+    --weight-bold: 700;
+    --weight-extra: 800;
+
+    /* ── Spacing (4px base) ────────────────────────────── */
+    --sp-1: 0.25rem;
+    /* 4px  */
+    --sp-2: 0.5rem;
+    /* 8px  */
+    --sp-3: 0.75rem;
+    /* 12px */
+    --sp-4: 1rem;
+    /* 16px */
+    --sp-5: 1.25rem;
+    /* 20px */
+    --sp-6: 1.5rem;
+    /* 24px */
+    --sp-8: 2rem;
+    /* 32px */
+    --sp-10: 2.5rem;
+    /* 40px */
+    --sp-12: 3rem;
+    /* 48px */
+    --sp-16: 4rem;
+    /* 64px */
+
+    /* ── Border Radii ──────────────────────────────────── */
+    --r-xs: 0.375rem;
+    /* 6px  */
+    --r-sm: 0.625rem;
+    /* 10px */
+    --r-md: 0.875rem;
+    /* 14px */
+    --r-lg: 1.25rem;
+    /* 20px */
+    --r-xl: 1.5rem;
+    /* 24px */
+    --r-2xl: 1.875rem;
+    /* 30px */
+    --r-full: 62.5rem;
+    /* pill */
+
+    /* ── Shadows ────────────────────────────────────────── */
+    --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.09), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.18);
+    --shadow-2xl: 0 40px 80px -20px rgba(0, 0, 0, 0.25);
+    --shadow-primary: 0 8px 24px -4px rgba(16, 185, 129, 0.40);
+    --shadow-dark: 0 20px 40px rgba(15, 23, 42, 0.30);
+
+    /* ── Z-Index Scale ─────────────────────────────────── */
+    --z-header: 1000;
+    --z-modal: 9999;
+    --z-toast: 99999;
+    --z-lightbox: 999999;
+
+    /* ── Transitions (hardware-accelerated) ────────────── */
+    --ease-out: cubic-bezier(0.0, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    --duration-fast: 150ms;
+    --duration-base: 250ms;
+    --duration-slow: 400ms;
+    --duration-slower: 600ms;
+
+    --transition-fast: all var(--duration-fast) var(--ease-out);
+    --transition-base: all var(--duration-base) var(--ease-out);
+    --transition-slow: all var(--duration-slow) var(--ease-spring);
+    --transition-spring: all var(--duration-slower) var(--ease-spring);
+
+    /* ── Layout ────────────────────────────────────────── */
+    --header-height: 72px;
+    --max-width: 1440px;
+    --card-width: 320px;
+    --card-img-height: 220px;
+
+    /* ── Glassmorphism ─────────────────────────────────── */
+    --glass-bg: rgba(255, 255, 255, 0.72);
+    --glass-border: rgba(255, 255, 255, 0.40);
+    --glass-blur: blur(20px);
+    --glass-dark-bg: rgba(15, 23, 42, 0.72);
+}
+
+/* ── Mobile overrides ─────────────────────────────────────── */
+@media (max-width: 768px) {
+    :root {
+        --header-height: 64px;
+        --card-width: 290px;
+        --text-5xl: 2.5rem;
+        --sp-10: 1.5rem;
+    }
+}

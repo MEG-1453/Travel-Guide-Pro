@@ -1,0 +1,14 @@
+/* App.css — minimal; main .app-container styles live in PlacesCards.css */
+
+/* Entrance animation applied after Loading screen fades out */
+@keyframes appEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

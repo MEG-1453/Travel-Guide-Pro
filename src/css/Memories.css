@@ -1,0 +1,639 @@
+/* Memories.css — Premium Travel Journal Feed */
+
+/* ── Backdrop & Modal Shell ───────────────────────────────── */
+.mem-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(2, 6, 23, 0.82);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    z-index: var(--z-modal);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-top: 56px;
+    animation: memBackdropIn 0.25s var(--ease-out);
+}
+
+.mem-modal {
+    background: var(--clr-50);
+    width: 100%;
+    max-width: 720px;
+    height: calc(100% - 56px);
+    border-radius: var(--r-2xl) var(--r-2xl) 0 0;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 -24px 80px rgba(0, 0, 0, 0.35);
+    animation: memSheetIn 0.42s var(--ease-spring);
+    overflow: hidden;
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+.mem-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--sp-5) var(--sp-6);
+    background: linear-gradient(to bottom, rgba(16,185,129,0.06), var(--clr-white));
+    border-bottom: 1px solid var(--color-border-light);
+    flex-shrink: 0;
+}
+
+.mem-header-info {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+}
+
+.mem-header-icon {
+    font-size: 28px;
+}
+
+.mem-header-title {
+    font-size: var(--text-xl);
+    font-weight: var(--weight-bold);
+    color: var(--clr-900);
+    margin: 0 0 2px;
+}
+
+.mem-header-sub {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    margin: 0;
+}
+
+.mem-close {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-border);
+    background: var(--color-bg);
+    color: var(--color-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-fast);
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+.mem-close:hover {
+    background: var(--clr-800);
+    border-color: var(--clr-800);
+    color: white;
+    transform: rotate(90deg);
+}
+
+/* ── Scrollable Body ─────────────────────────────────────── */
+.mem-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--sp-5) var(--sp-6) var(--sp-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-5);
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+}
+
+/* ── Composer ────────────────────────────────────────────── */
+.mem-composer {
+    background: var(--clr-white);
+    border: 1.5px solid var(--color-border-light);
+    border-radius: var(--r-xl);
+    padding: var(--sp-4);
+    display: flex;
+    gap: var(--sp-3);
+    box-shadow: var(--shadow-xs);
+}
+
+.mem-composer--guest {
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-2);
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+    padding: var(--sp-5);
+    background: var(--clr-50);
+}
+
+.mem-composer--guest span {
+    font-size: 18px;
+    color: var(--clr-primary);
+}
+
+.mem-composer-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+    min-width: 0;
+}
+
+.mem-composer-text {
+    width: 100%;
+    background: var(--clr-50);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--r-md);
+    padding: var(--sp-3) var(--sp-4);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    color: var(--clr-900);
+    resize: none;
+    outline: none;
+    box-sizing: border-box;
+    transition: var(--transition-fast);
+    line-height: 1.55;
+}
+
+.mem-composer-text::placeholder {
+    color: var(--color-subtle);
+}
+
+.mem-composer-text:focus {
+    border-color: var(--clr-primary);
+    background: var(--clr-white);
+    box-shadow: 0 0 0 3px var(--clr-primary-glow);
+}
+
+.mem-composer-preview {
+    position: relative;
+    border-radius: var(--r-md);
+    overflow: hidden;
+    max-height: 200px;
+    border: 1px solid var(--color-border);
+}
+
+.mem-composer-preview img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.mem-composer-remove-img {
+    position: absolute;
+    top: var(--sp-2);
+    right: var(--sp-2);
+    background: rgba(0,0,0,0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+}
+
+.mem-composer-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+}
+
+.mem-composer-file-btn {
+    background: var(--clr-50);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--r-full);
+    padding: var(--sp-2) var(--sp-4);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--clr-700);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    font-family: var(--font-sans);
+}
+
+.mem-composer-file-btn:hover {
+    background: var(--clr-100);
+    border-color: var(--clr-300);
+}
+
+.mem-composer-submit {
+    margin-left: auto;
+    background: linear-gradient(135deg, var(--clr-primary), var(--clr-primary-dark));
+    color: white;
+    border: none;
+    border-radius: var(--r-full);
+    padding: var(--sp-2) var(--sp-5);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semi);
+    cursor: pointer;
+    transition: var(--transition-slow);
+    font-family: var(--font-sans);
+    box-shadow: var(--shadow-primary);
+    letter-spacing: 0.2px;
+}
+
+.mem-composer-submit:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(16,185,129,0.4);
+}
+
+.mem-composer-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ── Avatar ──────────────────────────────────────────────── */
+.mem-avatar {
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--weight-bold);
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+
+/* ── Feed & Memory Cards ─────────────────────────────────── */
+.mem-feed {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+}
+
+.mem-card {
+    background: var(--clr-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-xs);
+    transition: box-shadow var(--duration-base) var(--ease-out),
+        transform var(--duration-base) var(--ease-spring);
+}
+
+.mem-card:hover {
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
+}
+
+.mem-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--sp-3);
+    padding: var(--sp-4) var(--sp-4) var(--sp-3);
+}
+
+.mem-author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+}
+
+.mem-author-name {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--clr-800);
+}
+
+.mem-place-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: var(--text-xs);
+    color: var(--clr-primary-dark);
+    font-weight: var(--weight-medium);
+}
+
+.mem-date {
+    font-size: var(--text-xs);
+    color: var(--color-subtle);
+}
+
+.mem-delete-btn {
+    background: none;
+    border: none;
+    color: var(--color-subtle);
+    cursor: pointer;
+    padding: var(--sp-1);
+    border-radius: var(--r-xs);
+    opacity: 0;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+}
+
+.mem-card:hover .mem-delete-btn {
+    opacity: 1;
+}
+
+.mem-delete-btn:hover {
+    background: rgba(239,68,68,0.08);
+    color: #ef4444;
+}
+
+.mem-text {
+    padding: 0 var(--sp-4) var(--sp-3);
+    font-size: var(--text-base);
+    color: var(--clr-800);
+    line-height: 1.7;
+    margin: 0;
+}
+
+.mem-image-wrap {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--clr-100);
+}
+
+.mem-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--duration-slow) var(--ease-spring);
+}
+
+.mem-card:hover .mem-image {
+    transform: scale(1.03);
+}
+
+/* ── Actions Bar ─────────────────────────────────────────── */
+.mem-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-3) var(--sp-4);
+    border-top: 1px solid var(--color-border-light);
+}
+
+.mem-like-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-1);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-muted);
+    padding: var(--sp-1) var(--sp-2);
+    border-radius: var(--r-xs);
+    transition: color var(--duration-fast) var(--ease-out),
+                background var(--duration-fast) var(--ease-out);
+    font-family: var(--font-sans);
+}
+
+.mem-like-btn:hover {
+    background: rgba(239,68,68,0.06);
+    color: #ef4444;
+}
+
+.mem-like-btn.liked {
+    color: #ef4444;
+}
+
+.mem-heart {
+    font-size: 18px;
+    display: inline-block;
+    line-height: 1;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.mem-like-btn.liked .mem-heart {
+    animation: memHeartPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.mem-comment-toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-1);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    padding: var(--sp-1) var(--sp-2);
+    border-radius: var(--r-xs);
+    font-family: var(--font-sans);
+    font-weight: var(--weight-medium);
+    transition: var(--transition-fast);
+}
+
+.mem-comment-toggle:hover,
+.mem-comment-toggle.active {
+    color: var(--clr-primary);
+    background: var(--clr-primary-soft);
+}
+
+.mem-engagement {
+    margin-left: auto;
+    font-size: var(--text-xs);
+    color: var(--color-subtle);
+}
+
+/* ── Comments ────────────────────────────────────────────── */
+.mem-comments {
+    padding: var(--sp-3) var(--sp-4);
+    border-top: 1px solid var(--color-border-light);
+    background: var(--clr-50);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    animation: memCommentsSlide 0.22s var(--ease-spring);
+}
+
+.mem-comment-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--sp-2);
+}
+
+.mem-comment-body {
+    background: var(--clr-white);
+    border-radius: var(--r-md);
+    padding: var(--sp-2) var(--sp-3);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.mem-comment-author {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    color: var(--clr-800);
+}
+
+.mem-comment-text {
+    font-size: var(--text-sm);
+    color: var(--clr-900);
+    line-height: 1.5;
+}
+
+.mem-comments-empty {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    margin: 0;
+    text-align: center;
+    padding: var(--sp-2) 0;
+}
+
+.mem-comment-form {
+    display: flex;
+    gap: var(--sp-2);
+    align-items: center;
+}
+
+.mem-comment-input {
+    flex: 1;
+    background: var(--clr-white);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--r-full);
+    padding: var(--sp-2) var(--sp-4);
+    font-size: var(--text-sm);
+    font-family: var(--font-sans);
+    color: var(--clr-900);
+    outline: none;
+    transition: var(--transition-fast);
+}
+
+.mem-comment-input:focus {
+    border-color: var(--clr-primary);
+    box-shadow: 0 0 0 3px var(--clr-primary-glow);
+}
+
+.mem-comment-send {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--clr-primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.mem-comment-send:hover:not(:disabled) {
+    background: var(--clr-primary-dark);
+    transform: scale(1.1);
+}
+
+.mem-comment-send:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.mem-login-hint {
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+    text-align: center;
+    margin: var(--sp-1) 0 0;
+}
+
+/* Clickable inline login link */
+.mem-login-link {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: var(--weight-semi);
+    color: var(--clr-primary);
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color var(--duration-fast) var(--ease-out),
+                text-decoration-color var(--duration-fast) var(--ease-out);
+}
+.mem-login-link:hover {
+    color: var(--clr-primary-dark);
+}
+
+/* "Daha fazla görüntüle" pagination button */
+.mem-load-more {
+    background: none;
+    border: none;
+    padding: var(--sp-2) var(--sp-3);
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semi);
+    color: var(--clr-primary);
+    cursor: pointer;
+    text-align: left;
+    border-radius: var(--r-xs);
+    transition: var(--transition-fast);
+    width: 100%;
+}
+.mem-load-more:hover {
+    background: var(--clr-primary-soft);
+    color: var(--clr-primary-dark);
+}
+
+/* ── Empty State ─────────────────────────────────────────── */
+.mem-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-3);
+    padding: var(--sp-16);
+    text-align: center;
+    color: var(--color-muted);
+}
+
+.mem-empty-icon {
+    font-size: 52px;
+    opacity: 0.5;
+}
+
+.mem-empty p {
+    font-size: var(--text-base);
+    font-weight: var(--weight-semi);
+    color: var(--clr-700);
+    margin: 0;
+}
+
+.mem-empty span {
+    font-size: var(--text-sm);
+    color: var(--color-subtle);
+    font-style: italic;
+}
+
+/* ── Animations ──────────────────────────────────────────── */
+@keyframes memBackdropIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes memSheetIn {
+    from { transform: translateY(48px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes memCommentsSlide {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes memHeartPop {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.5) rotate(-10deg); }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .mem-body {
+        padding: var(--sp-4);
+    }
+    .mem-header {
+        padding: var(--sp-4);
+    }
+    .mem-composer {
+        padding: var(--sp-3);
+    }
+}
