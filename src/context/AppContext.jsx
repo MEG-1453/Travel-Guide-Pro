@@ -28,6 +28,7 @@ export function AppProvider({ children }) {
     const [selectedPlaceIds, setSelectedPlaceIds] = useState([]);
     const [activeModalPlace, setActiveModalPlace] = useState(null);
     const [showSuggestModal, setShowSuggestModal] = useState(false);
+    const [routeLoading, setRouteLoading] = useState(false);
     const [showAdmin, setShowAdmin] = useState(false);
     // Memories: activeMemoriesPlace = null → global feed, place object → place-specific feed
     const [showMemories, setShowMemories] = useState(false);
@@ -80,33 +81,34 @@ export function AppProvider({ children }) {
     }, []);
 
     const createRoute = useCallback(() => {
-        // 1. Seçilen mekanları filtrele
-        const selectedPlaces = placesData.filter(p => selectedPlaceIds.includes(p.id));
+        const places = placesData.filter(p => selectedPlaceIds.includes(p.id));
+        if (!places.length) return;
 
-        if (!selectedPlaces.length) return;
+        const destinations = places
+            .map(p => encodeURIComponent(`${p.title}, İstanbul`))
+            .join('/');
 
-        // 2. İsimleri URL için güvenli hale getir
-        const titles = selectedPlaces.map(p => encodeURIComponent(p.title));
+        const openMap = (origin) => {
+            window.open(`https://www.google.com/maps/dir/${origin}/${destinations}`, '_blank');
+        };
 
-        // 3. Resmi Google Maps Yol Tarifi Kök URL'si
-        // KESİN ÇÖZÜM: 'origin' parametresini vermediğimizde Google Maps otomatik olarak
-        // kullanıcının anlık (live) GPS konumunu başlangıç noktası kabul eder.
-        const baseUrl = "https://www.google.com/maps/dir/?api=1";
-
-        // 4. Hedef (son nokta) ve ara durakları (waypoints) ayır
-        const destination = titles.pop(); // Listenin son elemanını hedef olarak alır
-        const waypoints = titles.join('%7C'); // Kalanları '|' (%7C) ile birleştirir
-
-        // 5. Nihai URL'yi inşa et
-        let finalUrl = `${baseUrl}&destination=${destination}`;
-
-        // Eğer 1'den fazla yer seçildiyse, diğerlerini ara durak olarak ekle
-        if (waypoints) {
-            finalUrl += `&waypoints=${waypoints}`;
+        if (!navigator.geolocation) {
+            openMap(encodeURIComponent(`${places[0].title}, İstanbul`));
+            return;
         }
 
-        // 6. Linki güvenli bir şekilde yeni sekmede aç
-        window.open(finalUrl, '_blank', 'noopener,noreferrer');
+        setRouteLoading(true);
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                setRouteLoading(false);
+                openMap(`${pos.coords.latitude},${pos.coords.longitude}`);
+            },
+            () => {
+                setRouteLoading(false);
+                openMap(encodeURIComponent(`${places[0].title}, İstanbul`));
+            },
+            { timeout: 8000, maximumAge: 60000 }
+        );
     }, [placesData, selectedPlaceIds]);
 
     // ── Modal controls ─────────────────────────────────────
@@ -257,7 +259,7 @@ export function AppProvider({ children }) {
         showMemories, activeMemoriesPlace, showContact,
         toasts, isLoading,
         // actions
-        setQuery, setActiveCategory, toggleSelectPlace, createRoute,
+        setQuery, setActiveCategory, toggleSelectPlace, createRoute, routeLoading,
         openModal, closeModal,
         openSuggestModal, closeSuggestModal, openAdmin, closeAdmin,
         openMemories, closeMemories, openContact, closeContact,

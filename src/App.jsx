@@ -65,7 +65,7 @@ function AppContent() {
     placesData, filteredPlaces, selectedPlaceIds, query, activeCategory,
     activeModalPlace, showSuggestModal, showAdmin,
     showMemories, showContact,
-    toasts, toggleSelectPlace, createRoute,
+    toasts, toggleSelectPlace, createRoute, routeLoading,
     openModal, setQuery, setActiveCategory,
     handleAddReview, handleDeleteReview,
     handleSuggestPlace, handleApprovePlace, handleRejectPlace,
@@ -251,7 +251,20 @@ function AppContent() {
           <div className="route-info">
             <span className="route-count">{selectedPlaceIds.length}</span> yer seçildi
           </div>
-          <button onClick={createRoute} className="btn-route">Rotayı Oluştur ✈️</button>
+          <button
+            onClick={createRoute}
+            className={`btn-route ${routeLoading ? 'loading' : ''}`}
+            disabled={routeLoading}
+          >
+            {routeLoading ? (
+              <>
+                <span className="route-gps-dot" />
+                📍 Konum Alınıyor...
+              </>
+            ) : (
+              <>Rotayı Oluştur ✈️</>
+            )}
+          </button>
         </div>
       )}
 
