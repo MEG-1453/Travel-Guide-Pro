@@ -82,16 +82,19 @@ export function AppProvider({ children }) {
     const createRoute = useCallback(() => {
         const titles = placesData
             .filter(p => selectedPlaceIds.includes(p.id))
-            .map(p => encodeURIComponent(p.title)); // İsimleri URL formatına uygun hale getirir (Örn: boşluklar %20 olur)
+            .map(p => encodeURIComponent(p.title));
 
         if (!titles.length) return;
 
-        // SİHİRLİ KISIM: "Current+Location" parametresi Google Haritalar'ı 
-        // açıldığı an aktif GPS sinyalini bulmaya zorlar.
-        const baseUrl = "https://www.google.com/maps/dir/Current+Location";
+        // KESİN ÇÖZÜM BURASI: Hedeflerin en başına başlangıç noktası olarak
+        // anlık "Current+Location" (Mevcut Konum) parametresini ekliyoruz.
+        titles.unshift('Current+Location');
+
+        // Resmi Google Maps yol tarifi kök URL'si
+        const baseUrl = "https://www.google.com/maps/dir";
         const destinationPath = titles.join('/');
 
-        // Linki doğru bir şekilde birleştirip yeni sekmede açıyoruz
+        // Linki aç: Örn -> https://www.google.com/maps/dir/Current+Location/Galata...
         window.open(`${baseUrl}/${destinationPath}`, '_blank');
     }, [placesData, selectedPlaceIds]);
 
